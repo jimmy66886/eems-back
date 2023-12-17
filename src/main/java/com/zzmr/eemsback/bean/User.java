@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author zzmr
@@ -31,11 +32,17 @@ public class User {
     private String password;
 
     @TableField("birthday")
-    private LocalDate birthDay;
+    private LocalDateTime birthday;
 
     @TableField("name")
     private String name;
 
     @TableField("type")
     private Integer type;
+
+    @TableField("ic")
+    private String ic;
+
+    @TableField("class_id")
+    private Integer classId;
 }

@@ -1,17 +1,12 @@
 package com.zzmr.eemsback.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import com.zzmr.eemsback.bean.User;
 import com.zzmr.eemsback.result.Result;
 import com.zzmr.eemsback.service.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zzmr
@@ -26,10 +21,22 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/test")
-    public Result test() {
-        List<User> list = userService.list();
-        return Result.success(list);
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        User userDB = userService.login(user);
+        return Result.success(userDB);
+    }
+
+    @PutMapping("/change")
+    public Result change(@RequestBody User user) {
+        userService.updateById(user);
+        return Result.success();
+    }
+
+    @GetMapping("/get/{id}")
+    public Result getById(@PathVariable Long id) {
+        User user = userService.getById(id);
+        return Result.success(user);
     }
 
 }

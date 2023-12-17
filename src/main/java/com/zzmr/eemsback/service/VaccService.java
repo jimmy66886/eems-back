@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface VaccService extends IService<Vacc> {
 
+    void saveOne(String value, String account);
 }

@@ -8,4 +8,11 @@ import com.zzmr.eemsback.bean.User;
  * @create 2023-12-10 22:00
  */
 public interface UserService extends IService<User> {
+    /**
+     * 用户登录
+     *
+     * @param user
+     * @return
+     */
+    User login(User user);
 }

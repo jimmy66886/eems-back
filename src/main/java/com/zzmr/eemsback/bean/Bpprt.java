@@ -1,5 +1,6 @@
 package com.zzmr.eemsback.bean;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -40,8 +41,8 @@ public class Bpprt implements Serializable {
     @TableField("value")
     private String value;
 
-    @TableField("date_time")
-    private LocalDateTime dateTime;
+    @TableField("date")
+    private LocalDate date;
 
 
 }
