@@ -2,6 +2,9 @@ package com.zzmr.eemsback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zzmr.eemsback.bean.User;
+import com.zzmr.eemsback.vo.StudentBpprtVo;
+
+import java.util.List;
 
 /**
  * @author zzmr
@@ -15,4 +18,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     User login(User user);
+
+    /**
+     * 获取同一个班所有学生的体温打卡信息
+     *
+     * @param classId
+     * @return
+     */
+    List<StudentBpprtVo> getBpprtInfo(Integer classId);
 }

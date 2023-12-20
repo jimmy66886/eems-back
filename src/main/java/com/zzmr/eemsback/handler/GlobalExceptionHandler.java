@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
             String repeatName = messageArr[2];
             // return Result.error(repeatName + "该用户名已存");
             log.info("唯一键问题: {}", repeatName);
-            return Result.error(repeatName + "该手机号已被注册");
+            return Result.error(repeatName + "该学号已被使用");
         } else {
             return Result.error("未知异常");
         }

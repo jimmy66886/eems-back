@@ -32,7 +32,7 @@ public class User {
     private String password;
 
     @TableField("birthday")
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     @TableField("name")
     private String name;
