@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BpprtService extends IService<Bpprt> {
 
+    /**
+     * 体温打卡，不可重复打卡
+     * @param value
+     * @param account
+     */
+    void insert(String value, String account);
 }

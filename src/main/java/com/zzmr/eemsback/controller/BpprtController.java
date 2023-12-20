@@ -1,6 +1,7 @@
 package com.zzmr.eemsback.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzmr.eemsback.bean.Bpprt;
 import com.zzmr.eemsback.result.Result;
 import com.zzmr.eemsback.service.BpprtService;
@@ -23,13 +24,22 @@ public class BpprtController {
     @Autowired
     private BpprtService bpprtService;
 
+    @GetMapping("/getBpprtInfo/{account}")
+    public Result getBpprtInfo(@PathVariable String account) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("account", account);
+        queryWrapper.eq("date", LocalDate.now());
+        Bpprt bpprt = bpprtService.getOne(queryWrapper);
+        if (bpprt != null) {
+            return Result.success(bpprt);
+        } else {
+            return Result.success(null);
+        }
+    }
+
     @PostMapping("/insert/{value}/{account}")
     public Result insert(@PathVariable("value") String value, @PathVariable("account") String account) {
-        Bpprt bpprt = new Bpprt();
-        bpprt.setAccount(account);
-        bpprt.setDate(LocalDate.now());
-        bpprt.setValue(value);
-        bpprtService.save(bpprt);
+        bpprtService.insert(value, account);
         return Result.success();
     }
 }
