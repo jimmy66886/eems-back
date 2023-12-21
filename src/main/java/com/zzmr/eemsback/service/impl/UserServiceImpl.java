@@ -9,6 +9,7 @@ import com.zzmr.eemsback.mapper.BpprtMapper;
 import com.zzmr.eemsback.mapper.UserMapper;
 import com.zzmr.eemsback.service.UserService;
 import com.zzmr.eemsback.vo.StudentBpprtVo;
+import com.zzmr.eemsback.vo.TeacherBpprtVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +63,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         return studentBpprtVos;
+    }
+
+    @Override
+    public List<TeacherBpprtVo> getTeBpprtInfo() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("type", 1);
+        List<User> teacherList = baseMapper.selectList(queryWrapper);
+
+        List<TeacherBpprtVo> teacherBpprtVos = new ArrayList<>();
+
+        for (User user : teacherList) {
+            TeacherBpprtVo teacherBpprtVo = new TeacherBpprtVo();
+
+            QueryWrapper q1 = new QueryWrapper();
+            q1.eq("account", user.getAccount());
+            q1.eq("date", LocalDate.now());
+            Bpprt bpprt = bpprtMapper.selectOne(q1);
+
+            if (bpprt != null) {
+                teacherBpprtVo.setBpprt(bpprt.getValue());
+            } else {
+                teacherBpprtVo.setBpprt("0");
+            }
+            teacherBpprtVo.setAccount(user.getAccount());
+            teacherBpprtVo.setName(user.getName());
+            teacherBpprtVos.add(teacherBpprtVo);
+        }
+        return teacherBpprtVos;
     }
 }

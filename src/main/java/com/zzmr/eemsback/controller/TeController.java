@@ -1,10 +1,8 @@
 package com.zzmr.eemsback.controller;
 
-import com.zzmr.eemsback.bean.User;
 import com.zzmr.eemsback.result.Result;
 import com.zzmr.eemsback.service.UserService;
 import com.zzmr.eemsback.vo.StudentBpprtVo;
-import com.zzmr.eemsback.vo.TeacherBpprtVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +15,25 @@ import java.util.List;
  * @create 2023-12-17 20:55
  */
 @RestController
-@Api(tags = "学校疫情管理员相关接口")
-@RequestMapping("/se")
+@Api(tags = "教职员工相关接口")
+@RequestMapping("/te")
 @CrossOrigin
-public class SeController {
+public class TeController {
 
     @Autowired
     private UserService userService;
 
     /**
-     * 获取所有老师的体温打卡信息
+     * 获取同一个班所有学生的体温打卡信息
      *
+     * @param classId
      * @return
      */
-    @ApiOperation("获取所有老师的体温打卡信息")
-    @GetMapping("/getTeBpprtInfo")
-    public Result getTeBpprtInfo() {
-        // 获取所有老师的name，account，bpprt
-        List<TeacherBpprtVo> list = userService.getTeBpprtInfo();
+    @ApiOperation("获取所有学生的体温打卡信息")
+    @GetMapping("/getBpprtInfo/{classId}")
+    public Result getBpprtInfo(@PathVariable Integer classId) {
+        // 获取所有学生的name，account，bpprt
+        List<StudentBpprtVo> list = userService.getBpprtInfo(classId);
 
         return Result.success(list);
     }
