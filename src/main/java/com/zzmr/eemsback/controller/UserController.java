@@ -39,4 +39,22 @@ public class UserController {
         return Result.success(user);
     }
 
+    // 插入疫情管理员信息
+    @PostMapping("/insertSe")
+    public Result insertSe(@RequestBody User user) {
+        user.setPassword("000000");
+        user.setType(3);
+        userService.save(user);
+        return Result.success();
+    }
+
+    // 插入二级单位管理员信息
+    @PostMapping("/insertSlt")
+    public Result insertSlt(@RequestBody User user) {
+        user.setPassword("000000");
+        user.setType(2);
+        userService.save(user);
+        return Result.success();
+    }
+
 }

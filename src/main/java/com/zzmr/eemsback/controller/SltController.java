@@ -22,7 +22,7 @@ public class SltController {
     @Autowired
     private UserService userService;
 
-    // 批量插入学生信息
+    // 插入学生信息
     @PostMapping("/insert")
     public Result insert(@RequestBody User user) {
         user.setPassword("000000");
@@ -31,5 +31,15 @@ public class SltController {
         System.out.println(user);
         return Result.success();
     }
+
+    // 插入老师信息
+    @PostMapping("/insertTeacher")
+    public Result insertTeacher(@RequestBody User user) {
+        user.setPassword("000000");
+        user.setType(1);
+        userService.save(user);
+        return Result.success();
+    }
+
 
 }

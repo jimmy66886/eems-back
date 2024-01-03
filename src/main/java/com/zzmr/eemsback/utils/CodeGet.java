@@ -51,7 +51,7 @@ public class CodeGet {
         StrategyConfig strategy = new StrategyConfig();
 
         // 指定表名
-        strategy.setInclude("isolation");
+        strategy.setInclude("message");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
 
