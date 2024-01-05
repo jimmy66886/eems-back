@@ -1,8 +1,12 @@
 package com.zzmr.eemsback.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zzmr.eemsback.bean.Bpprt;
 import com.zzmr.eemsback.bean.User;
 import com.zzmr.eemsback.result.Result;
 import com.zzmr.eemsback.service.UserService;
+import com.zzmr.eemsback.vo.AllBpprtVo;
 import com.zzmr.eemsback.vo.StudentBpprtVo;
 import com.zzmr.eemsback.vo.TeacherBpprtVo;
 import io.swagger.annotations.Api;
@@ -10,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -36,6 +41,13 @@ public class SeController {
         // 获取所有老师的name，account，bpprt
         List<TeacherBpprtVo> list = userService.getTeBpprtInfo();
 
+        return Result.success(list);
+    }
+
+    @ApiOperation("获取所有人的体温打卡信息")
+    @GetMapping("/getAllBpprtInfo")
+    public Result getAllBpprtInfo() {
+        List<AllBpprtVo> list = userService.getAllBpprtInfo();
         return Result.success(list);
     }
 

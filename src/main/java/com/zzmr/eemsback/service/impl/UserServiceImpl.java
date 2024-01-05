@@ -8,6 +8,7 @@ import com.zzmr.eemsback.exception.BaseException;
 import com.zzmr.eemsback.mapper.BpprtMapper;
 import com.zzmr.eemsback.mapper.UserMapper;
 import com.zzmr.eemsback.service.UserService;
+import com.zzmr.eemsback.vo.AllBpprtVo;
 import com.zzmr.eemsback.vo.StudentBpprtVo;
 import com.zzmr.eemsback.vo.TeacherBpprtVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private BpprtMapper bpprtMapper;
+
 
     @Override
     public User login(User user) {
@@ -91,5 +93,55 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             teacherBpprtVos.add(teacherBpprtVo);
         }
         return teacherBpprtVos;
+    }
+
+    @Override
+    public List<AllBpprtVo> getAllBpprtInfo() {
+
+        List<AllBpprtVo> allBpprtVoList = new ArrayList<>();
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.in("type", 0, 1, 2, 3);
+
+        List<User> users = baseMapper.selectList(queryWrapper);
+
+        for (User user : users) {
+
+            AllBpprtVo allBpprtVo = new AllBpprtVo();
+
+            QueryWrapper q1 = new QueryWrapper();
+            q1.eq("account", user.getAccount());
+            q1.eq("date", LocalDate.now());
+            Bpprt bpprt = bpprtMapper.selectOne(q1);
+
+            if (bpprt != null) {
+                allBpprtVo.setBpprt(bpprt.getValue());
+            } else {
+                allBpprtVo.setBpprt("0");
+            }
+
+            String type = "";
+            if (user.getType() == 0) {
+                type = "学生";
+            }
+            if (user.getType() == 1) {
+                type = "教职员工";
+            }
+            if (user.getType() == 2) {
+                type = "学校二级管理员";
+            }
+            if (user.getType() == 3) {
+                type = "学校疫情管理员";
+            }
+
+            allBpprtVo.setType(type);
+            allBpprtVo.setName(user.getName());
+            allBpprtVo.setAccount(user.getAccount());
+
+            allBpprtVoList.add(allBpprtVo);
+
+        }
+
+        return allBpprtVoList;
     }
 }
