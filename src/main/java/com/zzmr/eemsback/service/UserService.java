@@ -2,6 +2,7 @@ package com.zzmr.eemsback.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zzmr.eemsback.bean.User;
+import com.zzmr.eemsback.result.PageResult;
 import com.zzmr.eemsback.vo.AllBpprtVo;
 import com.zzmr.eemsback.vo.StudentBpprtVo;
 import com.zzmr.eemsback.vo.TeacherBpprtVo;
@@ -41,4 +42,11 @@ public interface UserService extends IService<User> {
      * @return
      */
     List<AllBpprtVo> getAllBpprtInfo();
+
+    /**
+     *
+     * 分页查询
+     * @return
+     */
+    PageResult getAllBpprtInfo(Integer page, Integer pageSize);
 }

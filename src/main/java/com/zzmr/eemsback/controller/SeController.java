@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzmr.eemsback.bean.Bpprt;
 import com.zzmr.eemsback.bean.User;
+import com.zzmr.eemsback.result.PageResult;
 import com.zzmr.eemsback.result.Result;
 import com.zzmr.eemsback.service.UserService;
 import com.zzmr.eemsback.vo.AllBpprtVo;
@@ -49,6 +50,13 @@ public class SeController {
     public Result getAllBpprtInfo() {
         List<AllBpprtVo> list = userService.getAllBpprtInfo();
         return Result.success(list);
+    }
+
+    @ApiOperation("分页查询所有人的体温打卡信息")
+    @GetMapping("/getAllBpprtInfoByPage/{page}/{pageSize}")
+    public Result getAllBpprtInfo(@PathVariable("page") Integer page, @PathVariable("pageSize") Integer pageSize) {
+        PageResult pageResult = userService.getAllBpprtInfo(page, pageSize);
+        return Result.success(pageResult);
     }
 
 
