@@ -140,7 +140,7 @@ public class UploadController {
             return Result.success();
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.error("上传失败");
+            return Result.error(e.getMessage());
         }
     }
 
